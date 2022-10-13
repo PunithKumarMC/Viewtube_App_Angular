@@ -1,0 +1,14 @@
+{
+  "loginData": [
+    {
+      "myemail": "punith@gmail.com",
+      "myconfirmpass": "Punith@123",
+      "id": 1
+    },
+    {
+      "myemail": "Kumar@gmail.com",
+      "myconfirmpass": "Kumar@123",
+      "id": 2
+    }
+  ]
+}
