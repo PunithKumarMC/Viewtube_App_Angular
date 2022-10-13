@@ -1,0 +1,177 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar><a class="main_sideheader" routerLink="/viewtube"> ViewTube</a></mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/studio"> Upload</a>
+      <a mat-list-item routerLink="/liveStream"> Live</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <span>viewtube Studio</span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <div style="display: inline-flex;">
+      <div class="header">
+        <h2>Video Details</h2>
+        <div>
+          <button mat-button type="submit" class="btn btn-warning" [disabled]="!registerForm.form.valid"
+            (click)="register()" style="margin-left: 280px;border: 1px solid;">
+            Save
+          </button>
+          <form #registerForm="ngForm">
+            <div>
+              <mat-form-field class="example-full-width" appearance="outline" style="width: 350px;">
+                <mat-label>Video Url</mat-label>
+                <input matInput [(ngModel)]="formdata.videoUrl" name="videoUrl" #videoUrl="ngModel" required
+                  appUrlValidation>
+
+                <!-- pattern="(https?\:\/\/)?(www\.youtube\.com|youtu\.be)\/.+" -->
+                <mat-hint>Video Url needs to be of type Youtube Embed</mat-hint>
+              </mat-form-field>
+            </div>
+            <div *ngIf="videoUrl.invalid && (videoUrl.dirty || videoUrl.touched)" class="alert alert-danger">
+              <div *ngIf="videoUrl.errors?.['required']">
+                <h4> Video Url is required</h4>
+              </div>
+              <div *ngIf="videoUrl.errors?.['err']">
+                <h4>{{videoUrl.errors?.['err']}}</h4>
+              </div>
+            </div>
+
+
+            <div>
+              <mat-form-field class="example-full-width" appearance="outline" style="width: 350px;">
+                <mat-label>Video Title</mat-label>
+                <textarea matInput [(ngModel)]="formdata.videoTitle" name="title" #videoTitle="ngModel" required
+                  maxlength="4"></textarea>
+                <mat-hint>0/120</mat-hint>
+              </mat-form-field>
+            </div>
+            <div *ngIf="videoTitle.invalid && (videoTitle.dirty || videoTitle.touched)" class="alert alert-danger">
+              <div *ngIf="videoTitle.errors?.['required']">
+                <h4> title is required</h4>
+              </div>
+            </div>
+            <div *ngIf="videoTitle.errors?.['maxlength']">Video Title should be within 120 characters</div>
+
+
+            <div>
+              <mat-form-field class="example-full-width" appearance="outline" style="width: 350px;">
+                <mat-label>Description</mat-label>
+                <textarea matInput></textarea>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="example-full-width" appearance="outline" style="width: 350px;">
+                <mat-label>Video Duration</mat-label>
+                <input matInput [(ngModel)]="formdata.duration" name="videoDuration" #videoDuration="ngModel" required>
+                <mat-hint>Enter the duration in the following format P</mat-hint>
+              </mat-form-field>
+            </div>
+            <div *ngIf="videoDuration.invalid && (videoDuration.dirty || videoDuration.touched)"
+              class="alert alert-danger">
+              <div *ngIf="videoDuration.errors?.['required']">
+                <h4> VideoDuration is required</h4>
+              </div>
+            </div>
+
+            <div>
+              <mat-form-field class="example-full-width" appearance="outline" style="width: 350px;">
+                <mat-label>Channel Title</mat-label>
+                <input matInput [(ngModel)]="formdata.channelTitle" name="channelTitle" #channelTitle="ngModel"
+                  required>
+              </mat-form-field>
+            </div>
+            <div *ngIf="channelTitle.invalid && (channelTitle.dirty || channelTitle.touched)"
+              class="alert alert-danger">
+              <div *ngIf="channelTitle.errors?.['required']">
+                <h4>channelTitle is required</h4>
+              </div>
+            </div>
+
+            <h2>Audience</h2>
+            <div>
+              <mat-radio-group aria-label="Select an option">
+                <h3>Is this video for kids?</h3>
+                <mat-radio-button value="1">Yes</mat-radio-button>
+                <mat-radio-button value="2">No</mat-radio-button>
+              </mat-radio-group>
+            </div><br>
+            <div>
+              <mat-radio-group aria-label="Select an option">
+                <h3>Age restriction</h3>
+                <mat-radio-button value="1">Yes, Restrict my videos to viewers over 18</mat-radio-button><br>
+                <mat-radio-button value="2">No, don't restrict my videos to viewers over 18</mat-radio-button>
+              </mat-radio-group>
+            </div><br>
+            <div>
+              <mat-form-field class="example-full-width" appearance="outline" style="width: 350px;">
+                <mat-label>Recording Date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="fill" style="width: 350px;">
+                <mat-label>Video Location</mat-label>
+                <mat-select required>
+                  <mat-option *ngFor="let place of city" [value]="place.city">{{place.city}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="fill" style="width: 350px;">
+                <mat-label>License</mat-label>
+                <mat-select required name="license" #license="ngModel" [(ngModel)]="formdata.license">
+                  <mat-option *ngFor="let license of licensedata" [value]="license.value">{{license.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="fill" style="width: 350px;">
+                <mat-label>Distribution</mat-label>
+                <mat-select required name="distribution" #distribution="ngModel" [(ngModel)]="formdata.distribution">
+                  <mat-option *ngFor="let dist of distributiondata" [value]="dist.value">{{dist.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="fill" style="width: 350px;">
+                <mat-label>Video Category </mat-label>
+                <mat-select required>
+                  <mat-option *ngFor="let cat of category" [value]="cat.value">{{cat.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="fill" style="width: 350px;">
+                <mat-label>Visibility</mat-label>
+                <mat-select name="visibility" required #visibility="ngModel" [(ngModel)]="formdata.visibilty">
+                  <mat-option *ngFor="let vis of visibilitydata" [value]="vis.value">{{vis.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="second_menu">
+        <div class="header">
+          <h1>Video Preview</h1>
+        </div>
+        <div>
+          <div class="second-sub-menu">
+            <h2>Description</h2>
+            <h5>Visibilty : {{formdata.visibilty}}</h5>
+            <h5>Distribution : {{formdata.distribution}}</h5>
+            <h5>License : {{formdata.license}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

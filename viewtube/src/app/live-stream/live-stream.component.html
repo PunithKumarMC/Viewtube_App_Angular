@@ -1,0 +1,90 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar><a class="main_sideheader" routerLink="/viewtube"> ViewTube</a></mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/studio"> Upload</a>
+      <a mat-list-item routerLink="/liveStream"> Live</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>viewtube Studio</span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <div class="main_Content">
+      <div>
+        <h2>Live Stream Editor</h2>
+      </div>
+      <form [formGroup]="liveStreamForm" (ngSubmit)="onSubmit()">
+
+        <div>
+          <mat-form-field appearance="fill">
+            <input matInput type="text" placeholder="AddTitle" formControlName="title" required>
+          </mat-form-field>
+          <div *ngIf="title?.invalid && (title?.dirty || title?.touched)">
+            <div *ngIf="title?.errors?.['required']">
+              <h4>Title cannot be left blank</h4>
+            </div>
+            <div *ngIf="title?.errors?.['maxlength']">
+              <h4>Title should be within 100 Characters</h4>
+            </div>
+          </div>
+        </div>
+        <div style="display: inline-flex;">
+          <div>
+            <mat-form-field appearance="fill">
+
+              <input matInput type="date" formControlName="startDate" name="startDate" required />
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field appearance="fill" style="margin-left:10px ;">
+
+              <input matInput type="time" formControlName="starttime" name="starttime" required placeholder="From Time">
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field appearance="fill" style="margin-left:10px ;">
+
+              <input matInput type="time" formControlName="endtime" name="endtime" required placeholder="To Time">
+            </mat-form-field>
+          </div>
+
+
+          <div>
+            <mat-form-field appearance="fill" style="margin-left:10px ;">
+              <input matInput type="date" formControlName="endDate" name="endDate" required />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div>
+          <h2>Event Details</h2>
+        </div>
+        <div style="display: inline-flex;">
+          <div>
+            <mat-form-field appearance="fill" style="width: 350px;">
+              <textarea matInput rows="8" cols="60" formControlName="comments" name="comments"
+                placeholder="Add Event Details"></textarea>
+            </mat-form-field>
+          </div>
+          <div style="margin-left: 20px;">
+            <mat-form-field appearance="outline" style="width: 400px;">
+              <textarea matInput rows="4" cols="60" formControlName="comments" name="comments"
+                placeholder="Add Event Details"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </form>
+      <button type="submit" [disabled]="liveStreamForm.invalid" mat-raised-button (click)="submitForm()">Save</button>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

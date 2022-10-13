@@ -1,0 +1,94 @@
+<div>
+  <mat-toolbar color="primary">
+    <div>
+      <button mat-icon-button mat-button class="example-icon" (click)="opened=!opened"
+        aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span><a class="Logo-toolbar" href="#" matTooltip="ViewTube"> ViewTube</a></span>
+    </div>
+    <div style="margin-left:50px;">
+      <mat-form-field appearance="fill" style="width: 500px;">
+        <input type="text" matInput placeholder="Search" />
+        <button mat-button mat-button matTooltip="Search">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button mat-button mat-button matTooltip="Search by Voice">
+          <mat-icon>mic</mat-icon>
+        </button>
+      </mat-form-field>
+
+    </div>
+    <span class="example-spacer"></span>
+    <div>
+      <button mat-icon-button mat-button matTooltip="Notifications" aria-label="Example icon-button with heart icon">
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <button mat-icon-button mat-button matTooltip="Create Studio" aria-label="Example icon-button with heart icon"
+        routerLink="/studio">
+        <mat-icon>video_call</mat-icon>
+      </button>
+      <button mat-icon-button mat-button matTooltip="Apps" aria-label="Example icon-button with heart icon">
+        <mat-icon>apps</mat-icon>
+      </button>
+      <button mat-icon-button mat-button aria-label="Example icon-button with share icon" matTooltip="Manage Profile"
+        [matMenuTriggerFor]="menu">
+        <mat-icon>person</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+</div>
+
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="opened" mode="side">
+    <mat-list>
+      <a href="#" mat-list-item>
+        <mat-icon>home</mat-icon>Home
+      </a>
+      <a href="#" mat-list-item>
+        <mat-icon>explore</mat-icon>Explore
+      </a>
+      <a href="#" mat-list-item>
+        <mat-icon>subscriptions</mat-icon>Shotrs
+      </a>
+      <a href="#" mat-list-item>
+        <mat-icon>library_add</mat-icon>Library
+      </a>
+      <a href="#" mat-list-item>
+        <mat-icon>history</mat-icon>History
+      </a>
+      <hr>
+      <p>Sign in to like videos,comment, and subscribe.</p>
+      <button mat-button color="primary" style="border: 1px solid black;">
+        <mat-icon>person</mat-icon>SIGN IN
+      </button>
+    </mat-list>
+  </mat-sidenav>
+  <!-- for toggling the content -->
+  <mat-sidenav-content>
+    <app-chips></app-chips>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>settings</mat-icon>
+    <span>Settings</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>help</mat-icon>
+    <span>Help</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Disable alerts</span>
+  </button>
+  <button mat-menu-item [disabled]="disable">
+    <mat-icon>feedback</mat-icon>
+    <span>Send Feedback</span>
+  </button>
+
+</mat-menu>

@@ -1,0 +1,26 @@
+<!-- <p>video-content works!</p> -->
+<!-- Display video cards here with 
+    poster-image
+    length of video in hh:mm:ss format
+    2-liner description
+    duration since last published 
+    number of views
+-->
+<div style="background-color: rgb(110, 109, 109);">
+  <div *ngFor="let info of video$ |async" style="display: inline-flex;">
+    <mat-card class="example-card" style="margin: 10px;">
+      <!-- <mat-card-header>
+    </mat-card-header> -->
+      <div>
+        <img mat-card-image src="{{info.snippet.thumbnails.default.url}}" alt="video not found">
+        <div style="position: relative;margin-left: 180px;margin-top:-39px;background-color: black;">
+          {{info.contentDetails.length}}</div>
+      </div><br>
+      <mat-card-content style="height: 130px;width: 220px;">
+        <p>{{info.snippet.title}} </p>
+        <p>{{info.snippet.channelTitle}}</p>
+        <p>{{info.statistics.viewCount}} views. {{info.snippet.relativeTime}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

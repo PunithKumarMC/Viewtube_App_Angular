@@ -1,0 +1,40 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.header{
+  padding: 10px;
+}
+
+.second_menu{
+  margin-left: 40px;
+}
+
+h4{
+  color: red;
+}
+
+.main_sideheader{
+  text-decoration: none;
+  color: white;
+}
+
+.second-sub-menu{
+  padding: 10px;
+  width: 500px;
+  background-color: rgb(77, 76, 76);
+}
